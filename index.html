@@ -1,37 +1,346 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cars</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" integrity="sha512-ApSLB1Pd3/bZN8fWB/RG9YhN/7bd9Hkf3AGaE2mPfebjrxagjuBtx2GcgdqIlJkUzwylBo61r9Xa9NmgBI0swA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital@0;1&family=Bitcount+Prop+Single:wght@100..900&family=Black+Ops+One&family=Foldit:wght@100..900&family=Geist+Pixel&family=Londrina+Shadow&family=Orbitron:wght@400..900&family=Rubik+80s+Fade&family=Rubik+Glitch&family=Turret+Road:wght@200;300;400;500;700;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Car for Sale</title>
+    <link rel="stylesheet" href="Styling/style.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css"
+        integrity="sha512-ApSLB1Pd3/bZN8fWB/RG9YhN/7bd9Hkf3AGaE2mPfebjrxagjuBtx2GcgdqIlJkUzwylBo61r9Xa9NmgBI0swA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rubik+Glitch&family=Turret+Road:wght@200;300;400;500;700;800&display=swap"
+        rel="stylesheet" />
 </head>
+
 <body>
-    <nav>
-        <div class="logo">
-            <img id="img1" src="car.png" width="150px" height="100px" alt="LOGO">
-            <img id="img2" src="smook.png" width="100px" height="100px">
+    <header class="hero" id="home">
+        <nav>
+            <div class="logo">
+                <img id="img1" src="Images/car.png" width="150px" height="100px" alt="LOGO">
+                <img id="img2" src="Images/smook.png" width="100px" height="100px">
+            </div>
+            <div class="nav-menu">
+                <a href="#home">Home</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact Us</a>
+            </div>
+            <div class="nav-number">
+                <a href=""><i class="fa-brands fa-instagram"></i></a>
+                <a href=""><i class="fa-brands fa-whatsapp"></i></a>
+                <a href=""><i class="fa fa-phone"></i></a>
+            </div>
+        </nav>
+
+        <section class="hero-content">
+            <div class="container hero-grid">
+                <div class="hero-text">
+                    <p class="eyebrow">Premium cars • Trusted sales</p>
+                    <h1 class="title">PORCHE</h1>
+                    <h2 class="subtitle">Your Comfort is <span>Our Responsibility</span></h2>
+                    <p class="lead">Over 20 years ago we asked ourselves if a sports car could celebrate more than the
+                        individual. The answer was: yes—through comfort, reliability, and service.</p>
+
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#gallery"><i class="fa-solid fa-car" aria-hidden="true"></i>
+                            Explore Cars</a>
+                        <a class="btn btn-ghost" href="#contact"><i class="fa-regular fa-calendar-check"
+                                aria-hidden="true"></i> Book an Appointment</a>
+                    </div>
+
+                    <div class="quick-stats" role="list" aria-label="Quick stats">
+                        <div class="stat" role="listitem">
+                            <span class="stat-number">20+</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                        <div class="stat" role="listitem">
+                            <span class="stat-number">150+</span>
+                            <span class="stat-label">Cars Sold</span>
+                        </div>
+                        <div class="stat" role="listitem">
+                            <span class="stat-number">4.9★</span>
+                            <span class="stat-label">Customer Rating</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-visual" aria-hidden="true">
+                    <div class="visual-card">
+                        <div class="visual-top">
+                            <span class="chip"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                                Inspected</span>
+                            <span class="chip"><i class="fa-solid fa-gauge" aria-hidden="true"></i> Performance
+                                Ready</span>
+                        </div>
+                        <div class="visual-body">
+                            <img src="Images/car.png" alt="Featured car" class="visual-image" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </header>
+
+    <main>
+        <section class="section" id="gallery">
+            <div class="container">
+                <div class="section-head">
+                    <h3 class="section-title">Featured Cars</h3>
+                    <p class="section-subtitle">Curated listings with transparent details and fast viewing.</p>
+                </div>
+
+                <div class="card-grid">
+                    <article class="car-card">
+                        <img src="Images/car.png" alt="Sport car" />
+                        <div class="car-card-body">
+                            <div class="car-top">
+                                <h4>PORCHE 911</h4>
+                                <span class="price">$89,900</span>
+                            </div>
+                            <ul class="specs">
+                                <li><i class="fa-solid fa-gauge" aria-hidden="true"></i> 450 HP</li>
+                                <li><i class="fa-solid fa-road" aria-hidden="true"></i> 0-60: 3.2s</li>
+                                <li><i class="fa-solid fa-gas-pump" aria-hidden="true"></i> Eco Mode</li>
+                            </ul>
+                            <div class="car-actions">
+                                <a class="btn btn-primary btn-sm" href="#contact">View details</a>
+                                <a class="btn btn-ghost btn-sm" href="#contact">Schedule test drive</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="car-card">
+                        <img src="Images/car.png" alt="Luxury sedan" />
+                        <div class="car-card-body">
+                            <div class="car-top">
+                                <h4>PORCHE Taycan</h4>
+                                <span class="price">$99,500</span>
+                            </div>
+                            <ul class="specs">
+                                <li><i class="fa-solid fa-bolt" aria-hidden="true"></i> 600 km range</li>
+                                <li><i class="fa-solid fa-mountain" aria-hidden="true"></i> AWD</li>
+                                <li><i class="fa-solid fa-snowflake" aria-hidden="true"></i> Dual climate</li>
+                            </ul>
+                            <div class="car-actions">
+                                <a class="btn btn-primary btn-sm" href="#contact">View details</a>
+                                <a class="btn btn-ghost btn-sm" href="#contact">Schedule test drive</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="car-card">
+                        <img src="Images/car.png" alt="SUV" />
+                        <div class="car-card-body">
+                            <div class="car-top">
+                                <h4>PORCHE Macan</h4>
+                                <span class="price">$56,900</span>
+                            </div>
+                            <ul class="specs">
+                                <li><i class="fa-solid fa-person" aria-hidden="true"></i> 5 seats</li>
+                                <li><i class="fa-solid fa-route" aria-hidden="true"></i> Comfort drive</li>
+                                <li><i class="fa-solid fa-car-side" aria-hidden="true"></i> Sport package</li>
+                            </ul>
+                            <div class="car-actions">
+                                <a class="btn btn-primary btn-sm" href="#contact">View details</a>
+                                <a class="btn btn-ghost btn-sm" href="#contact">Schedule test drive</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt" id="about">
+            <div class="container">
+                <div class="section-head">
+                    <h3 class="section-title">Why Choose Us</h3>
+                    <p class="section-subtitle">Professional service from first call to final handover.</p>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature">
+                        <div class="feature-icon"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></div>
+                        <h4>Transparent Inspection</h4>
+                        <p>Every car is checked and presented with clear condition notes.</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon"><i class="fa-solid fa-handshake-angle" aria-hidden="true"></i></div>
+                        <h4>Trusted Negotiation</h4>
+                        <p>No pressure—just straightforward pricing and flexible options.</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon"><i class="fa-solid fa-shield-heart" aria-hidden="true"></i></div>
+                        <h4>Customer-First Support</h4>
+                        <p>Fast answers and guidance for payments, documentation, and delivery.</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon"><i class="fa-solid fa-truck-fast" aria-hidden="true"></i></div>
+                        <h4>Fast Viewing</h4>
+                        <p>We help you get to your preferred car quickly with appointments.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="how-it-works">
+            <div class="container">
+                <div class="section-head">
+                    <h3 class="section-title">How It Works</h3>
+                    <p class="section-subtitle">Simple steps—built for busy people.</p>
+                </div>
+
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-num">01</div>
+                        <h4>Browse Listings</h4>
+                        <p>Pick a car from our featured gallery.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">02</div>
+                        <h4>Schedule a Test Drive</h4>
+                        <p>Choose a time and we’ll confirm quickly.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">03</div>
+                        <h4>Finalize & Get Moving</h4>
+                        <p>Transparent paperwork and a smooth handover.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt" id="testimonials">
+            <div class="container">
+                <div class="section-head">
+                    <h3 class="section-title">Testimonials</h3>
+                    <p class="section-subtitle">What customers say about their experience.</p>
+                </div>
+
+                <div class="testimonial-grid">
+                    <figure class="testimonial">
+                        <blockquote>“Professional from start to finish. The car was exactly as described and the
+                            handover was smooth.”</blockquote>
+                        <figcaption>— A. Johnson</figcaption>
+                    </figure>
+                    <figure class="testimonial">
+                        <blockquote>“Great communication and fast scheduling. We got a test drive within days.”
+                        </blockquote>
+                        <figcaption>— M. Adeyemi</figcaption>
+                    </figure>
+                    <figure class="testimonial">
+                        <blockquote>“Transparent inspection and fair pricing. Highly recommend for anyone looking to buy
+                            confidently.”</blockquote>
+                        <figcaption>— S. Mensah</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="contact">
+            <div class="container">
+                <div class="contact-wrap">
+                    <div class="contact-copy">
+                        <h3 class="section-title">Book an Appointment</h3>
+                        <p class="section-subtitle">Send a request and we’ll contact you with available times.</p>
+                        <ul class="contact-points">
+                            <li><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Lagos • Abuja • Online</li>
+                            <li><i class="fa-solid fa-envelope" aria-hidden="true"></i> sales@porschecars.com</li>
+                            <li><i class="fa-solid fa-phone" aria-hidden="true"></i> +234 800 000 0000</li>
+                        </ul>
+                    </div>
+
+                    <form class="contact-form" action="#" method="post">
+                        <div class="field-row">
+                            <label>
+                                <span>Your Name</span>
+                                <input type="text" name="name" placeholder="John Doe" required />
+                            </label>
+                            <label>
+                                <span>Phone</span>
+                                <input type="tel" name="phone" placeholder="+234 ..." required />
+                            </label>
+                        </div>
+
+                        <label>
+                            <span>Select Car</span>
+                            <select name="car" required>
+                                <option value="">Choose...</option>
+                                <option>PORCHE 911</option>
+                                <option>PORCHE Taycan</option>
+                                <option>PORCHE Macan</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            <span>Preferred Day</span>
+                            <input type="date" name="date" required />
+                        </label>
+
+                        <label>
+                            <span>Message</span>
+                            <textarea name="message" rows="4" placeholder="Tell us what you need..."
+                                required></textarea>
+                        </label>
+
+                        <button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"
+                                aria-hidden="true"></i> Submit request</button>
+                        <p class="form-note">By submitting, you agree to be contacted about your appointment.</p>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div>
+                <div class="footer-brand">PORCHE Cars</div>
+                <p class="footer-text">Comfort-first selling with transparent inspection and fast scheduling.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-copy">© <span id="year"></span> All rights reserved.</div>
         </div>
-        <div class="nav-menu">
-            <a href="">Home</a>
-            <a href="">Gallary</a>
-            <a href="">About</a>
-            <a href="">Contact Us</a>
-        </div>
-        <div class="nav-number">
-            <a href=""><i class="fa-brands fa-instagram"></i></a>
-            <a href=""><i class="fa-brands fa-whatsapp"></i></a>
-            <a href=""><i class="fa fa-phone"></i></a>
-        </div>
-    </nav>
-    <div class="content">
-        <h1>PORCHE</h1>
-        <h2>Your Comforte, Is Our Resposiblity</h2>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequatur temporibus exercitationem expedita culpa commodi dolorum natus iure, delectus perferendis pariatur?</p>
-    </div>
+    </footer>
+ 
+    <script>
+        const year = document.getElementById('year');
+        if (year) year.textContent = new Date().getFullYear();
+
+        const scrollToSection = (target, offset = 140) => {
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = targetPosition - offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        };
+
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (!targetId || targetId === '#') return;
+
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    scrollToSection(target, 10);
+                    history.pushState(null, '', targetId);
+                }
+            });
+        });
+    </script>
 </body>
 </html>

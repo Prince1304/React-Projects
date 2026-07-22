@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import img from "./assets/img.png";
 
-export default function NotesApp() {
-  // 1. Dictionary state storing { "Title": "Note content" }
-  const [notesDict, setNotesDict] = useState({});
+export default function LocalStorageNotesApp() {
+  // 1. Initialize notesDict state from localStorage (or empty object if none exists)
+  const [notesDict, setNotesDict] = useState(() => {
+    const savedNotes = localStorage.getItem("my_react_notes");
+    return savedNotes ? JSON.parse(savedNotes) : {};
+  });
 
   // 2. Input form state
   const [formData, setFormData] = useState({
@@ -11,8 +14,13 @@ export default function NotesApp() {
     Note: ""
   });
 
-  // 3. State to track which note is currently opened in the modal
+  // 3. State to track open modal
   const [selectedNoteTitle, setSelectedNoteTitle] = useState(null);
+
+  // 4. Automatically sync notesDict to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("my_react_notes", JSON.stringify(notesDict));
+  }, [notesDict]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,7 +30,7 @@ export default function NotesApp() {
     }));
   };
 
-  // Add note to dictionary
+  // Add note to dictionary & local storage
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -33,7 +41,7 @@ export default function NotesApp() {
       [formData.title]: formData.Note
     }));
 
-    // Reset inputs
+    // Reset input fields
     setFormData({
       title: "",
       Note: ""
@@ -48,16 +56,23 @@ export default function NotesApp() {
       return updatedDict;
     });
 
-    // Close modal if the currently open note was deleted
     if (selectedNoteTitle === titleToDelete) {
       setSelectedNoteTitle(null);
+    }
+  };
+
+  // Clear all notes from local storage
+  const handleClearAll = () => {
+    if (window.confirm("Are you sure you want to delete all saved notes?")) {
+      setNotesDict({});
+      localStorage.removeItem("my_react_notes");
     }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 flex flex-col items-center justify-center p-4 sm:p-6 md:p-10 gap-8">
       
-      {/* Main Form Container */}
+      {/* Form Card */}
       <div className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl border border-amber-200 overflow-hidden flex flex-col md:flex-row">
         
         {/* Left Section - Form */}
@@ -67,7 +82,7 @@ export default function NotesApp() {
               Save Notes
             </h1>
             <p className="text-center text-gray-500 text-sm sm:text-base -mt-3">
-              Write down your thoughts and never forget them.
+              Stored locally on your device — never lost on refresh!
             </p>
 
             {/* Title Input */}
@@ -107,7 +122,7 @@ export default function NotesApp() {
               type="submit"
               className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-lg sm:text-xl font-semibold p-4 sm:p-5 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
             >
-              ✨ Save Note
+              💾 Save Note Locally
             </button>
           </form>
         </div>
@@ -126,15 +141,26 @@ export default function NotesApp() {
 
       </div>
 
-      {/* Saved Notes Cover Grid */}
+      {/* Saved Covers Container */}
       <div className="w-full max-w-5xl bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-amber-200 p-6 sm:p-8">
-        <h2 className="text-2xl sm:text-3xl font-bold text-amber-800 mb-6 flex items-center gap-2">
-          📚 Notebook Covers ({Object.keys(notesDict).length})
-        </h2>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl sm:text-3xl font-bold text-amber-800 flex items-center gap-2">
+            📚 Local Storage Notes ({Object.keys(notesDict).length})
+          </h2>
+
+          {Object.keys(notesDict).length > 0 && (
+            <button
+              onClick={handleClearAll}
+              className="text-xs sm:text-sm text-red-600 hover:text-red-800 underline font-semibold cursor-pointer"
+            >
+              Clear All Notes
+            </button>
+          )}
+        </div>
 
         {Object.keys(notesDict).length === 0 ? (
           <p className="text-gray-400 italic text-center py-6">
-            No notes saved yet. Add your first note above!
+            No saved notes in localStorage yet.
           </p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -143,7 +169,7 @@ export default function NotesApp() {
                 key={title}
                 className="group relative bg-gradient-to-br from-amber-600 to-orange-600 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 border-t-8 border-amber-800 p-6 flex flex-col justify-between min-h-[200px] overflow-hidden"
               >
-                {/* Decorative Notebook Binding Dots */}
+                {/* Notebook Binder Dots */}
                 <div className="absolute top-2 left-0 right-0 flex justify-around px-4 opacity-40">
                   <div className="w-3 h-3 bg-amber-900 rounded-full"></div>
                   <div className="w-3 h-3 bg-amber-900 rounded-full"></div>
@@ -151,17 +177,16 @@ export default function NotesApp() {
                   <div className="w-3 h-3 bg-amber-900 rounded-full"></div>
                 </div>
 
-                {/* Cover Title */}
                 <div className="mt-4">
                   <span className="text-xs font-semibold uppercase tracking-wider text-amber-200">
-                    Saved Note
+                    LocalStorage Note
                   </span>
                   <h3 className="text-2xl font-bold text-white break-words mt-1 line-clamp-2">
                     {title}
                   </h3>
                 </div>
 
-                {/* Action Buttons: Delete & View */}
+                {/* Actions */}
                 <div className="flex items-center justify-between mt-6 pt-4 border-t border-amber-500/50">
                   <button
                     onClick={() => handleDelete(title)}
@@ -197,12 +222,11 @@ export default function NotesApp() {
         )}
       </div>
 
-      {/* Note Reader Modal Popup */}
+      {/* Note View Modal */}
       {selectedNoteTitle && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fade-in">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-50">
           <div className="relative w-full max-w-2xl bg-[#fef9c3] rounded-2xl shadow-2xl border-2 border-yellow-300 overflow-hidden flex flex-col max-h-[85vh]">
             
-            {/* Modal Header */}
             <div className="bg-amber-100 p-4 border-b border-amber-200 flex items-center justify-between">
               <h3 className="text-xl sm:text-2xl font-bold text-amber-900 break-words max-w-[80%]">
                 {selectedNoteTitle}
@@ -216,7 +240,6 @@ export default function NotesApp() {
               </button>
             </div>
 
-            {/* Modal Note Content with Legal Paper background */}
             <div
               className="p-6 sm:p-8 overflow-y-auto flex-1 pl-12 sm:pl-16"
               style={{
@@ -232,18 +255,17 @@ export default function NotesApp() {
               </p>
             </div>
 
-            {/* Modal Footer Controls */}
             <div className="p-4 bg-amber-100/80 border-t border-amber-200 flex justify-between items-center">
               <button
                 onClick={() => handleDelete(selectedNoteTitle)}
-                className="text-red-600 hover:text-red-800 font-semibold text-sm flex items-center gap-1 cursor-pointer"
+                className="text-red-600 hover:text-red-800 font-semibold text-sm cursor-pointer"
               >
                 🗑️ Delete Note
               </button>
 
               <button
                 onClick={() => setSelectedNoteTitle(null)}
-                className="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-5 py-2 rounded-xl text-sm transition-colors cursor-pointer"
+                className="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-5 py-2 rounded-xl text-sm cursor-pointer"
               >
                 Close
               </button>

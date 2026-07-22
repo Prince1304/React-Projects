@@ -176,7 +176,7 @@ export default function LocalStorageNotesApp() {
               type="submit"
               className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-lg sm:text-xl font-semibold p-4 sm:p-5 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
             >
-              💾 Save Note Locally
+              💾 Save Note
             </button>
           </form>
         </div>
@@ -199,7 +199,7 @@ export default function LocalStorageNotesApp() {
       <div className="w-full max-w-5xl bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-amber-200 p-6 sm:p-8">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-amber-800 flex items-center gap-2">
-            📚 Local Storage Notes ({Object.keys(notesDict).length})
+            📚 Storage Notes ({Object.keys(notesDict).length})
           </h2>
 
           {/* Action Buttons for All Notes */}

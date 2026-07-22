@@ -1,4 +1,1 @@
-div{
-    color: aliceblue;
-    font-size: 200px;
-}
+@import "tailwindcss";

@@ -61,29 +61,56 @@ export default function LocalStorageNotesApp() {
     }
   };
 
-  // Function to download note as a .txt file
+  // Function to download a single note as a .txt file
   const handleDownloadFile = (title) => {
     const noteContent = notesDict[title];
     if (!noteContent) return;
 
-    // Create file text content
     const fileData = `Title: ${title}\n====================\n\n${noteContent}`;
     
-    // Create blob and downloadable URL link
     const blob = new Blob([fileData], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     
     const link = document.createElement("a");
     link.href = url;
-    // Clean filename (replaces invalid character symbols with underscores)
     const safeFileName = title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
     link.download = `${safeFileName}_note.txt`;
     
-    // Trigger browser download
     document.body.appendChild(link);
     link.click();
     
-    // Cleanup memory
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  // Function to download ALL notes formatted nicely in one .txt file
+  const handleDownloadAllNotes = () => {
+    const totalNotes = Object.keys(notesDict).length;
+    if (totalNotes === 0) return;
+
+    let combinedText = `========================================\n`;
+    combinedText += `          MY SAVED NOTES COLLECTION     \n`;
+    combinedText += `          Total Notes: ${totalNotes}   \n`;
+    combinedText += `          Exported on: ${new Date().toLocaleDateString()}\n`;
+    combinedText += `========================================\n\n`;
+
+    Object.entries(notesDict).forEach(([title, content], index) => {
+      combinedText += `----------------------------------------\n`;
+      combinedText += `NOTE #${index + 1}: ${title.toUpperCase()}\n`;
+      combinedText += `----------------------------------------\n`;
+      combinedText += `${content}\n\n\n`;
+    });
+
+    const blob = new Blob([combinedText], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `all_saved_notes_${Date.now()}.txt`;
+
+    document.body.appendChild(link);
+    link.click();
+
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
   };
@@ -170,18 +197,28 @@ export default function LocalStorageNotesApp() {
 
       {/* Saved Covers Container */}
       <div className="w-full max-w-5xl bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-amber-200 p-6 sm:p-8">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-amber-800 flex items-center gap-2">
             📚 Local Storage Notes ({Object.keys(notesDict).length})
           </h2>
 
+          {/* Action Buttons for All Notes */}
           {Object.keys(notesDict).length > 0 && (
-            <button
-              onClick={handleClearAll}
-              className="text-xs sm:text-sm text-red-600 hover:text-red-800 underline font-semibold cursor-pointer"
-            >
-              Clear All Notes
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={handleDownloadAllNotes}
+                className="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 font-semibold px-4 py-2 rounded-xl text-xs sm:text-sm shadow-sm transition-all duration-150 cursor-pointer flex items-center gap-1.5"
+              >
+                📦 Save All Notes (.txt)
+              </button>
+
+              <button
+                onClick={handleClearAll}
+                className="text-xs sm:text-sm text-red-600 hover:text-red-800 underline font-semibold cursor-pointer"
+              >
+                Clear All
+              </button>
+            </div>
           )}
         </div>
 

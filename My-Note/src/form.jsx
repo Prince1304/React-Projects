@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import img from "./assets/img.png";
 
 export default function LocalStorageNotesApp() {
-  // 1. Initialize notesDict state from localStorage (or empty object if none exists)
+  // 1. Initialize notesDict state from localStorage
   const [notesDict, setNotesDict] = useState(() => {
     const savedNotes = localStorage.getItem("my_react_notes");
     return savedNotes ? JSON.parse(savedNotes) : {};
@@ -17,7 +17,7 @@ export default function LocalStorageNotesApp() {
   // 3. State to track open modal
   const [selectedNoteTitle, setSelectedNoteTitle] = useState(null);
 
-  // 4. Automatically sync notesDict to localStorage whenever it changes
+  // 4. Automatically sync notesDict to localStorage
   useEffect(() => {
     localStorage.setItem("my_react_notes", JSON.stringify(notesDict));
   }, [notesDict]);
@@ -59,6 +59,33 @@ export default function LocalStorageNotesApp() {
     if (selectedNoteTitle === titleToDelete) {
       setSelectedNoteTitle(null);
     }
+  };
+
+  // Function to download note as a .txt file
+  const handleDownloadFile = (title) => {
+    const noteContent = notesDict[title];
+    if (!noteContent) return;
+
+    // Create file text content
+    const fileData = `Title: ${title}\n====================\n\n${noteContent}`;
+    
+    // Create blob and downloadable URL link
+    const blob = new Blob([fileData], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    
+    const link = document.createElement("a");
+    link.href = url;
+    // Clean filename (replaces invalid character symbols with underscores)
+    const safeFileName = title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+    link.download = `${safeFileName}_note.txt`;
+    
+    // Trigger browser download
+    document.body.appendChild(link);
+    link.click();
+    
+    // Cleanup memory
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   // Clear all notes from local storage
@@ -188,27 +215,53 @@ export default function LocalStorageNotesApp() {
 
                 {/* Actions */}
                 <div className="flex items-center justify-between mt-6 pt-4 border-t border-amber-500/50">
-                  <button
-                    onClick={() => handleDelete(title)}
-                    className="text-amber-200 hover:text-white hover:bg-amber-700/50 p-2 rounded-lg transition-colors cursor-pointer"
-                    title="Delete Note"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
+                  <div className="flex items-center gap-1">
+                    {/* Delete Icon Button */}
+                    <button
+                      onClick={() => handleDelete(title)}
+                      className="text-amber-200 hover:text-white hover:bg-amber-700/50 p-2 rounded-lg transition-colors cursor-pointer"
+                      title="Delete Note"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                      />
-                    </svg>
-                  </button>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        />
+                      </svg>
+                    </button>
 
+                    {/* Download File Icon Button */}
+                    <button
+                      onClick={() => handleDownloadFile(title)}
+                      className="text-amber-200 hover:text-white hover:bg-amber-700/50 p-2 rounded-lg transition-colors cursor-pointer"
+                      title="Download Note as TXT File"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+
+                  {/* View Note Modal Button */}
                   <button
                     onClick={() => setSelectedNoteTitle(title)}
                     className="bg-white text-amber-800 hover:bg-amber-50 font-bold px-4 py-2 rounded-xl shadow transition-transform duration-200 active:scale-95 cursor-pointer flex items-center gap-1.5 text-sm"
@@ -256,12 +309,21 @@ export default function LocalStorageNotesApp() {
             </div>
 
             <div className="p-4 bg-amber-100/80 border-t border-amber-200 flex justify-between items-center">
-              <button
-                onClick={() => handleDelete(selectedNoteTitle)}
-                className="text-red-600 hover:text-red-800 font-semibold text-sm cursor-pointer"
-              >
-                🗑️ Delete Note
-              </button>
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={() => handleDelete(selectedNoteTitle)}
+                  className="text-red-600 hover:text-red-800 font-semibold text-sm cursor-pointer"
+                >
+                  🗑️ Delete
+                </button>
+
+                <button
+                  onClick={() => handleDownloadFile(selectedNoteTitle)}
+                  className="text-amber-800 hover:text-amber-950 font-semibold text-sm cursor-pointer flex items-center gap-1"
+                >
+                  📥 Save as File
+                </button>
+              </div>
 
               <button
                 onClick={() => setSelectedNoteTitle(null)}

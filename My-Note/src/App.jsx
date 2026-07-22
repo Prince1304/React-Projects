@@ -1,12 +1,7 @@
-import React from 'react'
-import Form from './Form.jsx'
+import NotesApp from "./components/NotesApp";
 
 const App = () => {
-  return (
-    <>
-      <Form />
-    </>
-  )
-}
+  return <NotesApp />;
+};
 
-export default App
+export default App;

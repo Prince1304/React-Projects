@@ -135,6 +135,7 @@ export default function NotesApp() {
                 key={title}
                 className="relative bg-[#fef9c3] rounded-lg shadow-md hover:shadow-xl transition-shadow duration-200 border border-yellow-300 overflow-hidden flex flex-col justify-between min-h-[220px]"
                 style={{
+                  /* Creates lined notepad pattern + vertical margin line */
                   backgroundImage: `
                     linear-gradient(to right, transparent 28px, #f87171 28px, #f87171 30px, transparent 30px),
                     repeating-linear-gradient(transparent, transparent 27px, #e2e8f0 28px)
@@ -144,14 +145,14 @@ export default function NotesApp() {
               >
                 {/* Note Header */}
                 <div className="pt-3 pl-10 pr-4 pb-2 border-b border-amber-200 flex items-start justify-between bg-amber-100/50">
-                  <h3 className="font-bold text-amber-900 text-lg break-words max-w-[80%]">
+                  <h3 className="font-bold text-amber-900 text-lg truncate max-w-[80%]">
                     {title}
                   </h3>
                   
                   {/* Delete Button */}
                   <button
                     onClick={() => handleDelete(title)}
-                    className="text-red-500 hover:text-red-700 hover:bg-red-100/80 p-1 rounded-full transition-colors duration-150 cursor-pointer shrink-0"
+                    className="text-red-500 hover:text-red-700 hover:bg-red-100/80 p-1 rounded-full transition-colors duration-150 cursor-pointer"
                     title="Delete Note"
                   >
                     <svg
@@ -171,9 +172,9 @@ export default function NotesApp() {
                   </button>
                 </div>
 
-                {/* Note Content - Updated for line wrapping & breaking long words */}
+                {/* Note Content */}
                 <div className="pt-2 pl-10 pr-4 pb-4 flex-1">
-                  <p className="text-gray-800 leading-[28px] whitespace-pre-wrap break-words font-sans text-sm">
+                  <p className="text-gray-800 leading-[28px] whitespace-pre-wrap font-sans text-sm">
                     {content}
                   </p>
                 </div>

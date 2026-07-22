@@ -22,14 +22,6 @@ All notes are saved directly in your browser's **localStorage** — no sign-up, 
 
 ---
 
-## 🖼️ Screenshots
-
-| Form View                  | Notes Grid                                | Note Modal                     |
-| -------------------------- | ----------------------------------------- | ------------------------------ |
-| Left: note form with image | Center: saved notes as binder-style cards | Right: ruled-line reading view |
-
----
-
 ## 🧱 Project Architecture
 
 ```

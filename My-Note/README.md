@@ -104,3 +104,4 @@ This project is open-source and available under the [MIT License](LICENSE).
 ---
 
 <p align="center">Made with ❤️ using React + Tailwind</p>
+<p align="end">Devlope By, Kyada Prince</p>
